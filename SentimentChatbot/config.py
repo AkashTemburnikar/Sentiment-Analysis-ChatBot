@@ -14,4 +14,4 @@ class DefaultConfig:
     # --- Azure AI Language (Sentiment) ---
     # Set these in your shell before running the bot.
     ENDPOINT_URI = os.environ.get("MicrosoftAIServiceEndpoint", "https://languageservice0101.cognitiveservices.azure.com/")
-    API_KEY = os.environ.get("MicrosoftAPIKey", "7wLukA4cg98fEZqJkeiWSsfw7Sa1E8HnJFgjfrgf21MsdOIADV1iJQQJ99BIAC8vTInXJ3w3AAAaACOGUwBV")
+    API_KEY = os.environ.get("MicrosoftAPIKey", "")
