@@ -1,0 +1,185 @@
+/* ================================
+   Modern Adaptive UI Theme (2025)
+   ================================ */
+:root {
+  --bg: #0f172a;
+  --fg: #f1f5f9;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --card: rgba(255, 255, 255, 0.05);
+  --radius: 18px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --transition: all 0.25s ease;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* Light mode */
+.light {
+  --bg: #f8fafc;
+  --fg: #0f172a;
+  --muted: #475569;
+  --accent: #2563eb;
+  --card: rgba(255, 255, 255, 0.9);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Base Layout */
+body {
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  backdrop-filter: blur(10px);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.app-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+.variant-info {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* Layout container */
+.container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--card);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+}
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.btn {
+  width: 100%;
+  margin-bottom: 0.8rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+  transition: var(--transition);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--muted);
+}
+
+/* Main content */
+.content { width: 100%; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+/* Card styling */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.2rem;
+  transition: var(--transition);
+  backdrop-filter: blur(12px);
+}
+.card:hover { transform: translateY(-4px); }
+.card h3 { margin: 0 0 0.4rem 0; font-size: 1.1rem; }
+.card p  { margin: 0; color: var(--muted); line-height: 1.4; }
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.action {
+  flex: 1;
+  padding: 0.55rem;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.action.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.action.active {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: var(--accent);
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Variants */
+.dense .card   { padding: 0.9rem; }
+.spacious .card{ padding: 1.6rem; }
+.small-cards .cards { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.large-cards .cards { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+
+@media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+/* Modal */
+.modal { position: fixed; inset: 0; display: none; }
+.modal.show { display: block; }
+.modal-backdrop {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px);
+}
+.modal-content {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: min(600px, 92vw); background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1.2rem;
+}
+.modal-close {
+  position: absolute; right: .6rem; top: .4rem; background: transparent; color: var(--fg);
+  border: none; font-size: 1.6rem; cursor: pointer;
+}
+.modal-actions { display: flex; gap: .6rem; margin-top: 1rem; }

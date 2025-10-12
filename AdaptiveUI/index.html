@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-Adaptive UI Demo (Contextual Bandit)</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <h1>AI-Adaptive UI Demo</h1>
+    <div class="variant-info">
+      Current Variant: <span id="variantLabel">?</span>
+    </div>
+  </header>
+
+  <main class="container" id="container">
+    <aside class="sidebar" id="sidebar">
+      <h2>Quick Settings</h2>
+      <button id="resetPolicyBtn" class="btn">Reset Policy</button>
+      <button id="toggleThemeBtn" class="btn">Toggle Theme (manual)</button>
+      <div class="hint">
+        Click <b>Open</b>, <b>Favorite</b>, or <b>Dismiss</b>. The UI adapts in real time and learns your prefs.
+      </div>
+      <details>
+        <summary>How it works</summary>
+        <p>This uses a <strong>contextual multi-armed bandit</strong> (epsilon-greedy) to choose UI variants
+        (density, card size, theme) from context (time, viewport, OS theme). Rewards come from interactions.
+        Learning persists in <code>localStorage</code>.</p>
+      </details>
+    </aside>
+
+    <section class="content">
+      <div class="cards" id="cards"></div>
+    </section>
+  </main>
+
+  <!-- Modal for "Open" -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" data-close aria-label="Close">×</button>
+      <h2 id="modalTitle"></h2>
+      <p id="modalBody"></p>
+      <div class="modal-actions">
+        <a id="modalLink" href="#" target="_blank" rel="noreferrer" class="btn btn-secondary">Open Link</a>
+        <button class="btn" data-close>Done</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <span>Adaptive HCI · Contextual Bandit · LocalStorage</span>
+    <a href="README.md" target="_blank" rel="noreferrer">README</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
