@@ -1,4 +1,3 @@
-
 # SentimentChatbot
 
 A lightweight, rule-based chatbot built using the **Microsoft Bot Framework SDK for Python** and **Azure AI Text Analytics**.  
@@ -64,7 +63,7 @@ Implements the `EchoBot` class which handles all messages received from the user
 - Returns reversed text for anything unrecognized
 - Handles malformed or empty messages gracefully
 
-Example interaction:
+**Example interaction:**
 
 User: sentiment I love Python
 Bot: Sentiment: Positive (pos=0.92, neu=0.05, neg=0.03)
@@ -79,7 +78,7 @@ Bot: Sentiment: Positive (pos=0.92, neu=0.05, neg=0.03)
 - Loads configuration from environment variables (via `config.py`)
 - Runs locally on port **3978**
 
-You can start it manually with:
+**Run the bot manually:**
 
 ```bash
 python app.py
@@ -89,7 +88,7 @@ python app.py
 
 3. config.py (Configuration)
 
-Defines the DefaultConfig class, which reads environment variables:
+Defines the DefaultConfig class, which reads environment variables.
 
 Variable	Description
 MicrosoftAppId	(Optional) Bot Framework App ID
@@ -105,7 +104,7 @@ PORT	Defaults to 3978
 
 4. Azure Sentiment Integration
 
-The bot uses Azure’s Text Analytics client:
+The bot uses Azure’s Text Analytics client.
 
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
@@ -114,7 +113,7 @@ It calls:
 
 client.analyze_sentiment([text])
 
-and responds like this:
+Response example:
 
 Sentiment: Positive (pos=0.95, neu=0.03, neg=0.02)
 
@@ -145,7 +144,7 @@ azure-ai-textanalytics>=5.3.0
 
 Step 4. Set environment variables
 
-Create a .env file or export them manually in your terminal:
+Create a .env file or export them manually in your terminal.
 
 export MicrosoftAIServiceEndpoint="https://<your-resource>.cognitiveservices.azure.com/"
 export MicrosoftAPIKey="<your-azure-api-key>"
@@ -161,7 +160,7 @@ export MicrosoftAppTenantId=""
 
 Running the Bot
 
-Start the bot using:
+Start the bot:
 
 python app.py
 
@@ -190,8 +189,6 @@ date
 sentiment I love this project!
 sentiment this is awful
 bye
-
-
 
 ⸻
 
