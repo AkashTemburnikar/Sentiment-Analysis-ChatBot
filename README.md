@@ -1,11 +1,11 @@
 SentimentChatbot
 
-A lightweight, rule-based chatbot built using the Microsoft Bot Framework SDK for Python and Azure AI Text Analytics.
+A lightweight rule-based chatbot built using the Microsoft Bot Framework SDK for Python and Azure AI Text Analytics.
 It runs locally using aiohttp and can be tested with the Bot Framework Emulator.
 
 ⸻
 
-Features
+1. Features
 	•	Responds to greetings (hi, hello, hey, etc.)
 	•	Shares the current time and date
 	•	Performs sentiment analysis using Azure Cognitive Services
@@ -15,50 +15,53 @@ Features
 
 ⸻
 
-Development Environment
+2. Development Environment
 
-This project was developed and tested on macOS.
-
-System and Tools Used
+This project was developed and tested on macOS using the following setup:
 	•	Device: MacBook (Apple Silicon)
-	•	OS: macOS
+	•	Operating System: macOS
 	•	Python Version: 3.10 or later
 	•	IDE: Visual Studio Code
-	•	Tools Required:
+
+Tools Required:
 	•	Python
 	•	pip
-	•	VS Code
-	•	Git (optional)
+	•	Visual Studio Code
+	•	Git (optional, for cloning)
 	•	Bot Framework Emulator
-	•	Azure Cognitive Services account (for sentiment API)
+	•	Azure Cognitive Services (for sentiment analysis)
+
+💡 You can still run the bot without Azure credentials — it will handle non-sentiment commands normally and display an error for missing credentials when sentiment is used.
 
 ⸻
 
-Project Structure
+3. Project Structure
 
 SentimentChatbot/
 ├── bots/
 │   ├── __init__.py
 │   └── echo_bot.py         # Core bot logic
 ├── app.py                  # Entry point / aiohttp web server
-├── config.py               # Environment variables and configuration
-├── requirements.txt        # Dependencies
+├── config.py               # Configuration & environment variables
+├── requirements.txt        # Python dependencies
 └── README.md
 
 
 ⸻
 
-How It Works
+4. How It Works
 
-1. echo_bot.py (Main Bot Logic)
+4.1 echo_bot.py — Main Bot Logic
 
-Implements the EchoBot class, which processes every message received from the user.
-	•	Detects commands such as help, time, date, bye
-	•	Runs sentiment analysis when input starts with sentiment
-	•	Replies with reversed text for unknown inputs
-	•	Handles malformed or empty messages
+Implements the EchoBot class, which handles user messages.
 
-Example
+Logic Overview:
+	•	Detects commands such as help, time, date, and bye
+	•	Runs sentiment analysis when a message begins with the word sentiment
+	•	Returns reversed text for unknown or unrecognized messages
+	•	Handles malformed or empty input gracefully
+
+Example Conversation:
 
 User: sentiment I love Python
 Bot: Sentiment: Positive (pos=0.92, neu=0.05, neg=0.03)
@@ -66,22 +69,22 @@ Bot: Sentiment: Positive (pos=0.92, neu=0.05, neg=0.03)
 
 ⸻
 
-2. app.py (Server Setup)
-	•	Uses aiohttp to host a web server at /api/messages
-	•	Initializes a CloudAdapter for the Bot Framework
-	•	Loads configuration from environment variables via config.py
-	•	Runs locally on port 3978
+4.2 app.py — Web Server Setup
+	•	Uses aiohttp to host an API endpoint at /api/messages
+	•	Initializes CloudAdapter from the Bot Framework
+	•	Loads configuration values from config.py
+	•	Runs on port 3978 by default
 
-Run the bot:
+Run the bot manually:
 
 python app.py
 
 
 ⸻
 
-3. config.py (Configuration)
+4.3 config.py — Configuration Settings
 
-Defines the DefaultConfig class, which reads environment variables.
+Defines the DefaultConfig class, which reads the following environment variables:
 
 Variable	Description
 MicrosoftAppId	(Optional) Bot Framework App ID
@@ -95,26 +98,28 @@ PORT	Defaults to 3978
 
 ⸻
 
-4. Azure Sentiment Integration
+4.4 Azure Sentiment Integration
 
-The bot uses Azure’s Text Analytics client:
+The bot uses Azure’s Text Analytics client to analyze message sentiment.
+
+Imports:
 
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 
-It calls:
+Sentiment Call:
 
 client.analyze_sentiment([text])
 
-Example response:
+Sample Response:
 
 Sentiment: Positive (pos=0.95, neu=0.03, neg=0.02)
 
-If credentials are missing, it raises a clear runtime error.
+If the credentials are missing, the bot raises a clear runtime error so the issue is visible during local testing.
 
 ⸻
 
-Setup and Installation (macOS)
+5. Setup and Installation (macOS)
 
 Step 1. Clone or unzip the repository
 
@@ -130,19 +135,19 @@ Step 3. Install dependencies
 
 pip install -r requirements.txt
 
-requirements.txt
+Dependencies (requirements.txt):
 
 botbuilder-integration-aiohttp>=4.15.0
 azure-ai-textanalytics>=5.3.0
 
 Step 4. Set environment variables
 
-Create a .env file or export them manually:
+Create a .env file or export manually in the terminal:
 
 export MicrosoftAIServiceEndpoint="https://<your-resource>.cognitiveservices.azure.com/"
 export MicrosoftAPIKey="<your-azure-api-key>"
 
-# Optional (for Bot Framework Emulator authentication)
+# Optional (for Emulator authentication)
 export MicrosoftAppId=""
 export MicrosoftAppPassword=""
 export MicrosoftAppType="MultiTenant"
@@ -151,20 +156,22 @@ export MicrosoftAppTenantId=""
 
 ⸻
 
-Running the Bot
+6. Running the Bot
 
 Start the bot:
 
 python app.py
 
-The bot will run locally at:
+Bot URL:
 
 http://localhost:3978/api/messages
 
 
 ⸻
 
-Testing with Bot Framework Emulator
+7. Testing with Bot Framework Emulator
+
+Follow these steps to chat with your bot locally:
 	1.	Install and open Bot Framework Emulator
 	2.	Click Open Bot
 	3.	Enter the endpoint:
@@ -172,8 +179,8 @@ Testing with Bot Framework Emulator
 http://localhost:3978/api/messages
 
 
-	4.	Leave App ID and Password empty (for local testing)
-	5.	Try chatting with:
+	4.	Leave App ID and Password fields empty for local testing
+	5.	Send messages like:
 
 hi
 what can you do
@@ -185,15 +192,15 @@ bye
 
 ⸻
 
-Future Enhancements
-	•	Add offline/local sentiment model (VADER or TextBlob)
-	•	Add conversation history or user context
-	•	Integrate intent classification (scikit-learn or spaCy)
-	•	Deploy using Docker or Azure Web App
+9. Future Enhancements
+	•	Add local sentiment model (e.g., VADER or TextBlob)
+	•	Implement conversation history or context awareness
+	•	Integrate machine learning intent classification (e.g., spaCy, scikit-learn)
+	•	Containerize and deploy using Docker or Azure Web App
 
 ⸻
 
-License
+10. License
 
 MIT License © 2025 Akash Temburnikar
-This project is for educational use.
+This project is intended for educational use and demonstration purposes.
