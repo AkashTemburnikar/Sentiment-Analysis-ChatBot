@@ -1,86 +1,79 @@
-# SentimentChatbot
+SentimentChatbot
 
-A lightweight, rule-based chatbot built using the **Microsoft Bot Framework SDK for Python** and **Azure AI Text Analytics**.  
-It runs locally using `aiohttp` and can be tested with the **Bot Framework Emulator**.
+A lightweight, rule-based chatbot built using the Microsoft Bot Framework SDK for Python and Azure AI Text Analytics.
+It runs locally using aiohttp and can be tested with the Bot Framework Emulator.
 
----
+⸻
 
-## Features
+Features
+	•	Responds to greetings (hi, hello, hey, etc.)
+	•	Shares the current time and date
+	•	Performs sentiment analysis using Azure Cognitive Services
+	•	Handles malformed or empty messages gracefully
+	•	Falls back to reverse-echo for unknown inputs
+	•	Easily extensible for new commands or integrations
 
-- Responds to greetings (`hi`, `hello`, `hey`, etc.)
-- Shares the current **time** and **date**
-- Performs **sentiment analysis** using Azure Cognitive Services
-- Handles malformed or empty messages gracefully
-- Falls back to **reverse-echo** for unknown inputs
-- Easily extensible for new commands or integrations
+⸻
 
----
-
-## Development Environment
+Development Environment
 
 This project was developed and tested on macOS.
 
-**System and Tools Used**
+System and Tools Used
+	•	Device: MacBook (Apple Silicon)
+	•	OS: macOS
+	•	Python Version: 3.10 or later
+	•	IDE: Visual Studio Code
+	•	Tools Required:
+	•	Python
+	•	pip
+	•	VS Code
+	•	Git (optional)
+	•	Bot Framework Emulator
+	•	Azure Cognitive Services account (for sentiment API)
 
-- **Device:** MacBook (Apple Silicon)
-- **OS:** macOS
-- **Python Version:** 3.10 or later
-- **IDE:** Visual Studio Code
-- **Tools Required:**
-  - [Python](https://www.python.org/downloads/)
-  - [pip](https://pip.pypa.io/en/stable/)
-  - [VS Code](https://code.visualstudio.com/)
-  - [Git](https://git-scm.com/) (optional, for cloning the repo)
-  - [Bot Framework Emulator](https://github.com/microsoft/BotFramework-Emulator)
-  - Azure Cognitive Services account (for sentiment API)
+⸻
 
-If you only want to test message handling (without sentiment), you can run the bot without Azure credentials.  
-Sentiment requests will then show an error message indicating that credentials are missing.
-
----
-
-## Project Structure
+Project Structure
 
 SentimentChatbot/
 ├── bots/
-│   ├── init.py
+│   ├── __init__.py
 │   └── echo_bot.py         # Core bot logic
 ├── app.py                  # Entry point / aiohttp web server
 ├── config.py               # Environment variables and configuration
 ├── requirements.txt        # Dependencies
 └── README.md
 
----
 
-## How It Works
+⸻
 
-### 1. `echo_bot.py` (Main Bot Logic)
+How It Works
 
-Implements the `EchoBot` class which handles all messages received from the user.
+1. echo_bot.py (Main Bot Logic)
 
-- Detects keywords such as `help`, `time`, `date`, `bye`
-- Performs sentiment analysis if the message starts with the word `sentiment`
-- Returns reversed text for anything unrecognized
-- Handles malformed or empty messages gracefully
+Implements the EchoBot class, which processes every message received from the user.
+	•	Detects commands such as help, time, date, bye
+	•	Runs sentiment analysis when input starts with sentiment
+	•	Replies with reversed text for unknown inputs
+	•	Handles malformed or empty messages
 
-**Example interaction:**
+Example
 
 User: sentiment I love Python
 Bot: Sentiment: Positive (pos=0.92, neu=0.05, neg=0.03)
 
----
 
-### 2. `app.py` (Server Setup)
+⸻
 
-- Uses `aiohttp` to host a web server at `/api/messages`
-- Initializes a **CloudAdapter** from the Bot Framework
-- Connects the bot logic to the HTTP endpoint
-- Loads configuration from environment variables (via `config.py`)
-- Runs locally on port **3978**
+2. app.py (Server Setup)
+	•	Uses aiohttp to host a web server at /api/messages
+	•	Initializes a CloudAdapter for the Bot Framework
+	•	Loads configuration from environment variables via config.py
+	•	Runs locally on port 3978
 
-**Run the bot manually:**
+Run the bot:
 
-```bash
 python app.py
 
 
@@ -104,7 +97,7 @@ PORT	Defaults to 3978
 
 4. Azure Sentiment Integration
 
-The bot uses Azure’s Text Analytics client.
+The bot uses Azure’s Text Analytics client:
 
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
@@ -113,11 +106,11 @@ It calls:
 
 client.analyze_sentiment([text])
 
-Response example:
+Example response:
 
 Sentiment: Positive (pos=0.95, neu=0.03, neg=0.02)
 
-If the credentials are missing, the bot raises a clear runtime error indicating the problem.
+If credentials are missing, it raises a clear runtime error.
 
 ⸻
 
@@ -144,7 +137,7 @@ azure-ai-textanalytics>=5.3.0
 
 Step 4. Set environment variables
 
-Create a .env file or export them manually in your terminal.
+Create a .env file or export them manually:
 
 export MicrosoftAIServiceEndpoint="https://<your-resource>.cognitiveservices.azure.com/"
 export MicrosoftAPIKey="<your-azure-api-key>"
@@ -164,7 +157,7 @@ Start the bot:
 
 python app.py
 
-It will run locally at:
+The bot will run locally at:
 
 http://localhost:3978/api/messages
 
@@ -179,8 +172,8 @@ Testing with Bot Framework Emulator
 http://localhost:3978/api/messages
 
 
-	4.	Leave App ID and Password empty for local testing
-	5.	Try chatting with messages like:
+	4.	Leave App ID and Password empty (for local testing)
+	5.	Try chatting with:
 
 hi
 what can you do
@@ -193,9 +186,9 @@ bye
 ⸻
 
 Future Enhancements
-	•	Add offline/local sentiment model (e.g., VADER or TextBlob)
+	•	Add offline/local sentiment model (VADER or TextBlob)
 	•	Add conversation history or user context
-	•	Integrate intent classification (using scikit-learn or spaCy)
+	•	Integrate intent classification (scikit-learn or spaCy)
 	•	Deploy using Docker or Azure Web App
 
 ⸻
